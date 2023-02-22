@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.Where;
+import org.nisum.challenge.controller.dto.PhoneDto;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,5 +21,14 @@ public class UserEntity extends BaseEntity{
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "password")
+    private String password;
+
+    //@OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
+    //private List<PhoneEntity> phones;
 
 }
