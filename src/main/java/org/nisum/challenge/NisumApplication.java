@@ -1,7 +1,18 @@
 package org.nisum.challenge;
 
-public class NisumApplication {
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+@SpringBootApplication
+public class NisumApplication extends SpringBootServletInitializer {
+
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+        SpringApplication.run(NisumApplication.class, "--spring.output.ansi.enabled=always");
+    }
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(NisumApplication.class);
     }
 }
