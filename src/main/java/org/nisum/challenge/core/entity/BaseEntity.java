@@ -3,11 +3,13 @@ package org.nisum.challenge.core.entity;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
@@ -20,19 +22,25 @@ import static java.lang.Boolean.TRUE;
 })
 public abstract class BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    protected Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    protected UUID id;
     @Column(name = "creation_date", nullable = false)
     protected OffsetDateTime creationDate;
-    @Column(name = "last_update_date", nullable = false)
-    protected OffsetDateTime lastUpdateDate;
+    @Column(name = "last_modified_date", nullable = false)
+    protected OffsetDateTime lastModifiedDate;
+    @Column(name = "last_login_date", nullable = false)
+    protected OffsetDateTime lastLoginDate;
     @Column(name = "active")
     protected Boolean active;
 
     protected BaseEntity(){
         creationDate = OffsetDateTime.now();
-        lastUpdateDate = creationDate;
+        lastModifiedDate = creationDate;
+        lastLoginDate = creationDate;
         active = true;
     }
 
@@ -46,6 +54,10 @@ public abstract class BaseEntity {
 
     @PreUpdate
     protected void onUpdate(){
-        lastUpdateDate = OffsetDateTime.now();
+        lastModifiedDate = OffsetDateTime.now();
+    }
+
+    protected void onLogin(){
+        lastLoginDate = OffsetDateTime.now();
     }
 }

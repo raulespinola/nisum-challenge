@@ -28,7 +28,7 @@ public class UserEntity extends BaseEntity{
     @Column(name = "password")
     private String password;
 
-    //@OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
-    //private List<PhoneEntity> phones;
+    @OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PhoneEntity> phones;
 
 }
