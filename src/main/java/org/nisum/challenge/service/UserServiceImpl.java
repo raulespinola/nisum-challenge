@@ -17,12 +17,6 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     public UserModel createUser(UserModel userRequest) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setName(userRequest.getName());
-        UserEntity user = userRepository.save(userEntity);
-
-        UserModel userModel= new UserModel();
-        userModel.setName(user.getName());
-        return userModel;
+        return userMapper.entityToModel(userRepository.save(userMapper.modelToEntity(userRequest)));
     }
 }
