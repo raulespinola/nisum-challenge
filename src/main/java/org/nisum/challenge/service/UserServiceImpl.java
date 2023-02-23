@@ -1,6 +1,6 @@
 package org.nisum.challenge.service;
 
-import org.nisum.challenge.core.entity.UserEntity;
+import org.nisum.challenge.core.model.UserCreationModel;
 import org.nisum.challenge.core.model.UserModel;
 import org.nisum.challenge.mapper.UserMapper;
 import org.nisum.challenge.repository.UserRepository;
@@ -9,14 +9,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private UserMapper userMapper;
 
-    public UserModel createUser(UserModel userRequest) {
-        return userMapper.entityToModel(userRepository.save(userMapper.modelToEntity(userRequest)));
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+    }
+
+
+    public UserCreationModel createUser(UserModel userRequest) {
+        return userMapper.entityToUserCreationModel(userRepository
+                .save(userMapper.modelToEntity(userRequest)));
     }
 }

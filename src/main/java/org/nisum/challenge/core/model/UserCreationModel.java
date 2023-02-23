@@ -1,4 +1,4 @@
-package org.nisum.challenge.controller.dto;
+package org.nisum.challenge.core.model;
 
 import lombok.*;
 
@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserResponseDto {
+public class UserCreationModel {
     private String uuid;
     private OffsetDateTime creationDate;
     private OffsetDateTime lastModifiedDate;
@@ -20,5 +20,5 @@ public class UserResponseDto {
     private String name;
     private String email;
     private String password;
-    private List<PhoneDto> phones;
+    private List<PhoneModel> phones;
 }

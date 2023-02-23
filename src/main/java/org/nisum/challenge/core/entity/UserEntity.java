@@ -1,18 +1,17 @@
 package org.nisum.challenge.core.entity;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 import org.hibernate.annotations.Where;
-import org.nisum.challenge.controller.dto.PhoneDto;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
-@EqualsAndHashCode(callSuper = true)
 @Table(name = "user")
 @Entity
 @Where(clause = "active=true")
@@ -28,7 +27,22 @@ public class UserEntity extends BaseEntity{
     @Column(name = "password")
     private String password;
 
+    @Column(name= "token")
+    private String token;
+
     @OneToMany(fetch= FetchType.LAZY, cascade = CascadeType.ALL)
     private List<PhoneEntity> phones;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        UserEntity that = (UserEntity) o;
+        return uuid != null && Objects.equals(uuid, that.uuid);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
