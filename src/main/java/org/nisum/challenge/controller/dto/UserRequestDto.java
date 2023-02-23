@@ -1,6 +1,7 @@
 package org.nisum.challenge.controller.dto;
 
 import lombok.*;
+import org.nisum.challenge.controller.validator.Password;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -20,6 +21,7 @@ public class UserRequestDto {
     @NotEmpty(message = "Email cannot be empty")
     private String email;
     @NotEmpty(message = "Password cannot be empty")
+    @Password
     private String password;
     private List<PhoneDto> phones;
 }
