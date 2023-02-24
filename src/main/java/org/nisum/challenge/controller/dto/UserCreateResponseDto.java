@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserResponseDto {
+public class UserCreateResponseDto {
     private String uuid;
     private OffsetDateTime creationDate;
     private OffsetDateTime lastModifiedDate;

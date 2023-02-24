@@ -1,7 +1,9 @@
 package org.nisum.challenge.service;
 
+import org.nisum.challenge.config.JwtTokenUtil;
 import org.nisum.challenge.core.model.UserCreationModel;
-import org.nisum.challenge.core.model.UserModel;
+import org.nisum.challenge.core.model.UserLoginModel;
+import org.nisum.challenge.mapper.UserEntityMapper;
 import org.nisum.challenge.mapper.UserMapper;
 import org.nisum.challenge.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,13 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private UserMapper userMapper;
 
+	@Autowired
+	private JwtTokenUtil jwtTokenUtil;
+
+	@Autowired
+	private UserEntityMapper userEntityMapper;
+
+
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -34,10 +43,21 @@ public class UserService implements UserDetailsService {
 		}
 		return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
 				new ArrayList<>());
+
+	}
+
+	public UserLoginModel loadUser(String username){
+		UserDetails userDetails = loadUserByUsername(username);
+		String token = jwtTokenUtil.generateToken(userDetails);
+		return UserLoginModel.builder()
+				.token(token)
+				.username(userDetails.getUsername())
+				.expirationDateForToken(jwtTokenUtil.getExpirationDateFromToken(token))
+				.build();
 	}
 	
-	public UserCreationModel save(UserModel user) {
+	public UserCreationModel save(UserCreationModel user) {
 		return userMapper.entityToUserCreationModel(userRepository
-				.save(userMapper.modelToEntity(user)));
+				.save(userEntityMapper.modelToEntity(user,  bcryptEncoder.encode(user.getPassword()))));
 	}
 }

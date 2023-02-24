@@ -36,13 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			"/v3/api-docs",
 			"/v2/api-docs",
 			"/webjars/**",
-			"/authenticate",
+			"/login",
 			"/register"
 	};
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(jwtUserDetailsService)
+				.passwordEncoder(passwordEncoder());
 	}
 
 	@Bean
@@ -64,7 +65,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 					.antMatchers(AUTH_LIST)
 					.permitAll()
 				.anyRequest().authenticated().and()
-				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
+				.exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
+				.and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

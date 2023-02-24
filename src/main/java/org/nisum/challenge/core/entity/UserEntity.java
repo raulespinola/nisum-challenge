@@ -13,7 +13,7 @@ import java.util.Objects;
 
 @Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"}, name = "UQ_email_constraint")})
 @Entity
-@Where(clause = "active=true")
+@Where(clause = "is_active=true")
 @NoArgsConstructor
 @Getter
 @Setter

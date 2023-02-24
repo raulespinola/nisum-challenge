@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "phone")
 @Entity
-@Where(clause = "active=true")
+@Where(clause = "is_active=true")
 @NoArgsConstructor
 public class PhoneEntity extends BaseEntity {
 
