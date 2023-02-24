@@ -17,7 +17,7 @@ public class UserResponseDto {
     private OffsetDateTime lastLoginDate;
     private String token;
     private Boolean isActive;
-    private String name;
+    private String username;
     private String email;
     private String password;
     private List<PhoneDto> phones;

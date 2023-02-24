@@ -10,7 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class UserModel {
-    private String name;
+    private String username;
     private String email;
     private String password;
     private List<PhoneModel> phones;
