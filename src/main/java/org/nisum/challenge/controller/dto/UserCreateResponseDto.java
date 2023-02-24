@@ -10,14 +10,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserResponseDto {
+public class UserCreateResponseDto {
     private String uuid;
     private OffsetDateTime creationDate;
     private OffsetDateTime lastModifiedDate;
     private OffsetDateTime lastLoginDate;
     private String token;
     private Boolean isActive;
-    private String name;
+    private String username;
     private String email;
     private String password;
     private List<PhoneDto> phones;

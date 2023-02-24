@@ -13,10 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserRequestDto {
+public class UserCreateRequestDto {
 
-    @NotEmpty(message = "Name cannot be empty")
-    private String name;
+    @NotEmpty(message = "Username cannot be empty")
+    private String username;
     @Email(message = "Email is not valid", regexp ="^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$")
     @NotEmpty(message = "Email cannot be empty")
     private String email;

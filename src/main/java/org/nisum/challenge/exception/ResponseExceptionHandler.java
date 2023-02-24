@@ -99,4 +99,11 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler({CustomAuthenticateException.class})
+    public ResponseEntity<Object> handleCustomException(CustomAuthenticateException ex) {
+        ErrorDTO errorDTO = ErrorDTO.builder().mensaje(ex.getLocalizedMessage()).build();
+        LogManager.getLogger(ResponseExceptionHandler.class).error(ex);
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
 }

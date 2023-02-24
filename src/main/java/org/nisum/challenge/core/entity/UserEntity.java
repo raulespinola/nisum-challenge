@@ -10,16 +10,17 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Getter
-@Setter
+
 @Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"}, name = "UQ_email_constraint")})
 @Entity
-@Where(clause = "active=true")
+@Where(clause = "is_active=true")
 @NoArgsConstructor
+@Getter
+@Setter
 public class UserEntity extends BaseEntity{
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "username")
+    private String username;
 
     @Column(name = "email")
     private String email;
